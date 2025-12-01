@@ -1,6 +1,6 @@
 {
   "name": "discogs-dataset-genres-styles",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "A list of genres and styles extracted from the official Discogs Data Dump that's published monthly as a dataset.",
   "type": "commonjs",
   "main": "./index.cjs",
