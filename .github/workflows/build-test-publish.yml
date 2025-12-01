@@ -1,0 +1,167 @@
+name: Build
+
+on:
+  schedule:
+    - cron: '0 6 2 * *'
+  workflow_dispatch:
+    inputs:
+      should_release:
+        description: 'Publish to NPM & create GitHub Release'
+        required: false
+        default: false
+        type: boolean
+
+  push:
+    branches: [ main ]
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    outputs:
+      source_file: ${{ steps.determine_dump.outputs.filename }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y pigz jq
+
+      - name: Determine latest Discogs releases dump filename
+        id: determine_dump
+        run: |
+          set -euo pipefail
+
+          S3_BUCKET="https://discogs-data-dumps.s3-us-west-2.amazonaws.com"
+          YEAR=$(date +%Y)
+
+          echo "Fetching latest Discogs releases data dump for year $YEAR ..."
+
+          LATEST_KEY=$(
+            curl -s "${S3_BUCKET}/?prefix=data/${YEAR}/" \
+              | grep -oE '<Key>data/[0-9]{4}/discogs_[0-9]{8}_releases\.xml\.gz</Key>' \
+              | sed 's/<Key>\(.*\)<\/Key>/\1/' \
+              | sort -V \
+              | tail -1
+          )
+
+          if [[ -z "${LATEST_KEY}" ]]; then
+            echo "Error: Could not find data dump." >&2
+            exit 1
+          fi
+
+          FILENAME=$(basename "${LATEST_KEY}")
+          echo "Latest releases dump filename: ${FILENAME}"
+          echo "FILENAME=${FILENAME}" >> "$GITHUB_ENV"
+          echo "filename=${FILENAME}" >> "$GITHUB_OUTPUT"
+
+      - name: Download latest Discogs Data Dump for Releases
+        id: download_dump
+        run: |
+          set -euo pipefail
+          chmod +x scripts/download-data-dump.sh
+          scripts/download-data-dump.sh "$FILENAME"
+
+      - name: Extract latest genres & styles
+        id: extract
+        run: |
+          set -euo pipefail
+          chmod +x scripts/extract-genres-styles.sh
+          scripts/extract-genres-styles.sh "$FILENAME"
+
+      - name: Housekeeping
+        if: always()
+        run: |
+          set -euo pipefail
+          rm -f "$FILENAME" discogs_*_CHECKSUM.txt || true
+
+      - name: Upload dist artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+          if-no-files-found: error
+
+  test:
+    runs-on: ubuntu-latest
+    needs: extract
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download dist artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+
+      - name: Run tests
+        run: npm test
+
+  publish:
+    runs-on: ubuntu-latest
+    needs: [extract, test]
+    permissions:
+      contents: write
+      id-token: write
+    outputs:
+      should_release: ${{ steps.publish_changes.outputs.should_release }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Download dist artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Configure git user
+        run: |
+          git config --local user.email "${{ github.actor }}@users.noreply.github.com"
+          git config --local user.name "${{ github.actor }}"
+
+      - name: Publish changes upstream
+        id: publish_changes
+        env:
+          SOURCE_FILE: ${{ needs.extract.outputs.source_file }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SHOULD_RELEASE: ${{ github.event.inputs.should_release == 'true' }}
+        run: |
+          set -euo pipefail
+          chmod +x .github/scripts/publish.sh
+          .github/scripts/publish.sh "$SOURCE_FILE" "$SHOULD_RELEASE"
+
+      - name: Create GitHub Release using GH CLI
+        if: ${{ github.event.inputs.should_release == 'true' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SOURCE_FILE: ${{ needs.extract.outputs.source_file }}
+        run: |
+          set -euo pipefail
+
+          TAG="${{ steps.publish_changes.outputs.tag_name }}"
+          NAME="${{ steps.publish_changes.outputs.tag_name }}"
+          DATE="${{ steps.publish_changes.outputs.extracted_date }}"
+
+          echo "Creating release $TAG ..."
+
+          gh release create "$TAG" dist/* \
+            --title "$NAME" \
+            --notes "Automated dataset update.
+            Source file: \`${SOURCE_FILE}\`
+            Extracted on: ${DATE}
+            "

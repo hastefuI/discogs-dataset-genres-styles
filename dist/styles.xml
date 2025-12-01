@@ -1,0 +1,760 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<styles>
+  <style>AOR</style>
+  <style>Aboriginal</style>
+  <style>Abstract</style>
+  <style>Acid</style>
+  <style>Acid House</style>
+  <style>Acid Jazz</style>
+  <style>Acid Rock</style>
+  <style>Acoustic</style>
+  <style>African</style>
+  <style>Afro-Cuban</style>
+  <style>Afro-Cuban Jazz</style>
+  <style>Afrobeat</style>
+  <style>Aguinaldo</style>
+  <style>Aleatoric</style>
+  <style>Alt-Pop</style>
+  <style>Alternative Metal</style>
+  <style>Alternative Rock</style>
+  <style>Amapiano</style>
+  <style>Ambient</style>
+  <style>Ambient House</style>
+  <style>Anarcho-Punk</style>
+  <style>Anatolian Rock</style>
+  <style>Andalusian Classical</style>
+  <style>Andean Music</style>
+  <style>Anison</style>
+  <style>Antifolk</style>
+  <style>Appalachian Music</style>
+  <style>Arabic Pop</style>
+  <style>Arena Rock</style>
+  <style>Art Rock</style>
+  <style>Art Song</style>
+  <style>Atmospheric Black Metal</style>
+  <style>Atonal</style>
+  <style>Audiobook</style>
+  <style>Avant-garde Jazz</style>
+  <style>Avantgarde</style>
+  <style>Axé</style>
+  <style>Azonto</style>
+  <style>Bachata</style>
+  <style>Baila</style>
+  <style>Baião</style>
+  <style>Bakersfield Sound</style>
+  <style>Balearic</style>
+  <style>Ballad</style>
+  <style>Ballet</style>
+  <style>Ballroom</style>
+  <style>Baltimore Club</style>
+  <style>Bambuco</style>
+  <style>Banda</style>
+  <style>Bangladeshi Classical</style>
+  <style>Barbershop</style>
+  <style>Baroque</style>
+  <style>Baroque Pop</style>
+  <style>Basque Music</style>
+  <style>Bass Music</style>
+  <style>Bassline</style>
+  <style>Batucada</style>
+  <style>Bayou Funk</style>
+  <style>Beat</style>
+  <style>Beatbox</style>
+  <style>Beatdown</style>
+  <style>Beguine</style>
+  <style>Bel Canto</style>
+  <style>Bengali Music</style>
+  <style>Berlin-School</style>
+  <style>Bećarac</style>
+  <style>Bhangra</style>
+  <style>Big Band</style>
+  <style>Big Beat</style>
+  <style>Bitpop</style>
+  <style>Black Metal</style>
+  <style>Blackgaze</style>
+  <style>Bleep</style>
+  <style>Bluegrass</style>
+  <style>Blues Rock</style>
+  <style>Bolero</style>
+  <style>Bollywood</style>
+  <style>Bomba</style>
+  <style>Bongo Flava</style>
+  <style>Boogaloo</style>
+  <style>Boogie</style>
+  <style>Boogie Woogie</style>
+  <style>Boom Bap</style>
+  <style>Bop</style>
+  <style>Bossa Nova</style>
+  <style>Bossanova</style>
+  <style>Bounce</style>
+  <style>Bouncy Techno</style>
+  <style>Brass Band</style>
+  <style>Brass Instrument</style>
+  <style>Break-In</style>
+  <style>Breakbeat</style>
+  <style>Breakcore</style>
+  <style>Breaks</style>
+  <style>Brega</style>
+  <style>Britcore</style>
+  <style>Britpop</style>
+  <style>Broken Beat</style>
+  <style>Brutal Death Metal</style>
+  <style>Bubblegum</style>
+  <style>Bubbling</style>
+  <style>Bultrón</style>
+  <style>Byzantine</style>
+  <style>Cabaret</style>
+  <style>Caipira</style>
+  <style>Cajun</style>
+  <style>Calypso</style>
+  <style>Cambodian Classical</style>
+  <style>Candombe</style>
+  <style>Cantata</style>
+  <style>Cantopop</style>
+  <style>Cantorial</style>
+  <style>Canzone Napoletana</style>
+  <style>Cape Jazz</style>
+  <style>Capriccio</style>
+  <style>Carimbó</style>
+  <style>Carnatic</style>
+  <style>Catalan Music</style>
+  <style>Celtic</style>
+  <style>Cha-Cha</style>
+  <style>Chacarera</style>
+  <style>Chamamé</style>
+  <style>Chamber Music</style>
+  <style>Champeta</style>
+  <style>Chanson</style>
+  <style>Charanga</style>
+  <style>Chicago Blues</style>
+  <style>Chillwave</style>
+  <style>Chinese Classical</style>
+  <style>Chiptune</style>
+  <style>Choral</style>
+  <style>Choro</style>
+  <style>Chutney</style>
+  <style>City Pop</style>
+  <style>Classic Rock</style>
+  <style>Classical</style>
+  <style>Classical Guitar</style>
+  <style>Cloud Rap</style>
+  <style>Cobla</style>
+  <style>Coldwave</style>
+  <style>Comedy</style>
+  <style>Comfy Synth</style>
+  <style>Compas</style>
+  <style>Concert Band</style>
+  <style>Concert Film</style>
+  <style>Concerto</style>
+  <style>Concerto Grosso</style>
+  <style>Conjunto</style>
+  <style>Conscious</style>
+  <style>Contemporary</style>
+  <style>Contemporary Jazz</style>
+  <style>Contemporary R&amp;B</style>
+  <style>Cool Jazz</style>
+  <style>Copla</style>
+  <style>Corrido</style>
+  <style>Country</style>
+  <style>Country Blues</style>
+  <style>Country Rock</style>
+  <style>Cretan</style>
+  <style>Crossover Thrash</style>
+  <style>Crossover thrash</style>
+  <style>Crunk</style>
+  <style>Crust</style>
+  <style>Cuatro</style>
+  <style>Cubano</style>
+  <style>Cumbia</style>
+  <style>Currulao</style>
+  <style>Cut-up/DJ</style>
+  <style>DJ Battle Tool</style>
+  <style>Dabke</style>
+  <style>Dance-pop</style>
+  <style>Dancehall</style>
+  <style>Dances</style>
+  <style>Dangdut</style>
+  <style>Dansband</style>
+  <style>Danzon</style>
+  <style>Dark Ambient</style>
+  <style>Dark Electro</style>
+  <style>Dark Jazz</style>
+  <style>Darkwave</style>
+  <style>Death Metal</style>
+  <style>Deathcore</style>
+  <style>Deathrock</style>
+  <style>Deconstructed Club</style>
+  <style>Deep House</style>
+  <style>Deep Techno</style>
+  <style>Delta Blues</style>
+  <style>Depressive Black Metal</style>
+  <style>Descarga</style>
+  <style>Desert Blues</style>
+  <style>Dialogue</style>
+  <style>Disco</style>
+  <style>Disco Polo</style>
+  <style>Divertimento</style>
+  <style>Dixieland</style>
+  <style>Donk</style>
+  <style>Doo Wop</style>
+  <style>Doom Metal</style>
+  <style>Doomcore</style>
+  <style>Downtempo</style>
+  <style>Dream Pop</style>
+  <style>Drill</style>
+  <style>Drone</style>
+  <style>Drum n Bass</style>
+  <style>Dub</style>
+  <style>Dub Poetry</style>
+  <style>Dub Techno</style>
+  <style>Dubstep</style>
+  <style>Dungeon Synth</style>
+  <style>Duranguense</style>
+  <style>EBM</style>
+  <style>Early</style>
+  <style>East Coast Blues</style>
+  <style>Easy Listening</style>
+  <style>Education</style>
+  <style>Educational</style>
+  <style>Electric Blues</style>
+  <style>Electro</style>
+  <style>Electro House</style>
+  <style>Electro Swing</style>
+  <style>Electroacoustic</style>
+  <style>Electroclash</style>
+  <style>Emo</style>
+  <style>Enka</style>
+  <style>Erotic</style>
+  <style>Ethereal</style>
+  <style>Ethno-pop</style>
+  <style>Etude</style>
+  <style>Euro House</style>
+  <style>Euro Trance</style>
+  <style>Euro-Disco</style>
+  <style>Eurobeat</style>
+  <style>Eurodance</style>
+  <style>Europop</style>
+  <style>Exotica</style>
+  <style>Experimental</style>
+  <style>Expressionist</style>
+  <style>Fado</style>
+  <style>Fantasia</style>
+  <style>Favela Funk</style>
+  <style>Field Recording</style>
+  <style>Filk</style>
+  <style>Flamenco</style>
+  <style>Folk</style>
+  <style>Folk Metal</style>
+  <style>Folk Rock</style>
+  <style>Footwork</style>
+  <style>Formes Fixes</style>
+  <style>Forró</style>
+  <style>Free Funk</style>
+  <style>Free Improvisation</style>
+  <style>Free Jazz</style>
+  <style>Freestyle</style>
+  <style>Freetekno</style>
+  <style>French House</style>
+  <style>Frevo</style>
+  <style>Funaná</style>
+  <style>Funeral Doom Metal</style>
+  <style>Funk</style>
+  <style>Funk Metal</style>
+  <style>Funkot</style>
+  <style>Fusion</style>
+  <style>Future Bass</style>
+  <style>Future House</style>
+  <style>Future Jazz</style>
+  <style>Future Pop</style>
+  <style>Futurism</style>
+  <style>G-Funk</style>
+  <style>Gabber</style>
+  <style>Gagaku</style>
+  <style>Gaita</style>
+  <style>Galician Traditional</style>
+  <style>Gamelan</style>
+  <style>Gangsta</style>
+  <style>Garage House</style>
+  <style>Garage Rock</style>
+  <style>Geet</style>
+  <style>Ghazal</style>
+  <style>Ghetto</style>
+  <style>Ghetto House</style>
+  <style>Ghettotech</style>
+  <style>Glam</style>
+  <style>Glitch</style>
+  <style>Glitch Hop</style>
+  <style>Gnawa</style>
+  <style>Go-Go</style>
+  <style>Goa Trance</style>
+  <style>Goregrind</style>
+  <style>Gospel</style>
+  <style>Goth Rock</style>
+  <style>Gothic Metal</style>
+  <style>Gqom</style>
+  <style>Grand Opera</style>
+  <style>Grime</style>
+  <style>Grindcore</style>
+  <style>Griot</style>
+  <style>Groove Metal</style>
+  <style>Group Sounds</style>
+  <style>Grunge</style>
+  <style>Guaguancó</style>
+  <style>Guajira</style>
+  <style>Guaracha</style>
+  <style>Guarania</style>
+  <style>Guggenmusik</style>
+  <style>Gusle</style>
+  <style>Gwo Ka</style>
+  <style>Gypsy Jazz</style>
+  <style>Għana</style>
+  <style>Halftime</style>
+  <style>Hands Up</style>
+  <style>Happy Hardcore</style>
+  <style>Hard Beat</style>
+  <style>Hard Bop</style>
+  <style>Hard House</style>
+  <style>Hard Rock</style>
+  <style>Hard Techno</style>
+  <style>Hard Trance</style>
+  <style>Hardcore</style>
+  <style>Hardcore Hip-Hop</style>
+  <style>Hardstyle</style>
+  <style>Harmonica Blues</style>
+  <style>Harpsichord</style>
+  <style>Harsh Noise Wall</style>
+  <style>Hawaiian</style>
+  <style>Health-Fitness</style>
+  <style>Heavy Metal</style>
+  <style>Hi NRG</style>
+  <style>Highlife</style>
+  <style>Hill Country Blues</style>
+  <style>Hillbilly</style>
+  <style>Hindustani</style>
+  <style>Hip Hop</style>
+  <style>Hip-House</style>
+  <style>Hiplife</style>
+  <style>Hokkien Pop</style>
+  <style>Holiday</style>
+  <style>Honky Tonk</style>
+  <style>Honkyoku</style>
+  <style>Horror Rock</style>
+  <style>Horrorcore</style>
+  <style>House</style>
+  <style>Huayno</style>
+  <style>Hyper Techno</style>
+  <style>Hyperpop</style>
+  <style>Hyphy</style>
+  <style>Hypnagogic pop</style>
+  <style>IDM</style>
+  <style>Illbient</style>
+  <style>Impressionist</style>
+  <style>Incidental Music</style>
+  <style>Indian Classical</style>
+  <style>Indie Pop</style>
+  <style>Indie Rock</style>
+  <style>Indo-Pop</style>
+  <style>Industrial</style>
+  <style>Industrial Metal</style>
+  <style>Instrumental</style>
+  <style>Interview</style>
+  <style>Italo House</style>
+  <style>Italo-Disco</style>
+  <style>Italodance</style>
+  <style>Izvorna</style>
+  <style>J-Core</style>
+  <style>J-Rock</style>
+  <style>J-pop</style>
+  <style>Jangle Pop</style>
+  <style>Jazz-Funk</style>
+  <style>Jazz-Rock</style>
+  <style>Jazzdance</style>
+  <style>Jazzy Hip-Hop</style>
+  <style>Jersey Club</style>
+  <style>Jibaro</style>
+  <style>Jiuta</style>
+  <style>Joropo</style>
+  <style>Jota</style>
+  <style>Jug Band</style>
+  <style>Juke</style>
+  <style>Jump Blues</style>
+  <style>Jumpstyle</style>
+  <style>Jungle</style>
+  <style>Junkanoo</style>
+  <style>K-Rock</style>
+  <style>K-pop</style>
+  <style>Karaoke</style>
+  <style>Kaseko</style>
+  <style>Kaskawi</style>
+  <style>Kayōkyoku</style>
+  <style>Keroncong</style>
+  <style>Keyboard</style>
+  <style>Khaliji</style>
+  <style>Kizomba</style>
+  <style>Klasik</style>
+  <style>Klezmer</style>
+  <style>Kolo</style>
+  <style>Korean Court Music</style>
+  <style>Krautrock</style>
+  <style>Kuduro</style>
+  <style>Kwaito</style>
+  <style>Lambada</style>
+  <style>Lao Music</style>
+  <style>Late Romantic</style>
+  <style>Latin</style>
+  <style>Latin Jazz</style>
+  <style>Latin Pop</style>
+  <style>Laïkó</style>
+  <style>Leftfield</style>
+  <style>Lento Violento</style>
+  <style>Levenslied</style>
+  <style>Lied</style>
+  <style>Light Music</style>
+  <style>Liscio</style>
+  <style>Lo-Fi</style>
+  <style>Louisiana Blues</style>
+  <style>Lounge</style>
+  <style>Lovers Rock</style>
+  <style>Low Bap</style>
+  <style>Lowercase</style>
+  <style>Luk Krung</style>
+  <style>Luk Thung</style>
+  <style>Lullaby</style>
+  <style>MPB</style>
+  <style>Madrigal</style>
+  <style>Magnificat</style>
+  <style>Makina</style>
+  <style>Maloya</style>
+  <style>Mambo</style>
+  <style>Mandopop</style>
+  <style>Manila Sound</style>
+  <style>Marcha Carnavalesca</style>
+  <style>Marches</style>
+  <style>Mariachi</style>
+  <style>Marimba</style>
+  <style>Mass</style>
+  <style>Math Rock</style>
+  <style>Mathcore</style>
+  <style>Mbalax</style>
+  <style>Medical</style>
+  <style>Medieval</style>
+  <style>Melodic Death Metal</style>
+  <style>Melodic Hardcore</style>
+  <style>Memphis Blues</style>
+  <style>Memphis Rap</style>
+  <style>Mento</style>
+  <style>Merengue</style>
+  <style>Metalcore</style>
+  <style>Miami Bass</style>
+  <style>Microhouse</style>
+  <style>Microtonal</style>
+  <style>Midwest Emo</style>
+  <style>Military</style>
+  <style>Milonga</style>
+  <style>Min'yō</style>
+  <style>Minimal</style>
+  <style>Minimal Techno</style>
+  <style>Minimalism</style>
+  <style>Minneapolis Sound</style>
+  <style>Mizrahi</style>
+  <style>Mo Lam</style>
+  <style>Mod</style>
+  <style>Modal</style>
+  <style>Modern</style>
+  <style>Modern Classical</style>
+  <style>Modern Electric Blues</style>
+  <style>Monolog</style>
+  <style>Moombahton</style>
+  <style>Morna</style>
+  <style>Motet</style>
+  <style>Motswako</style>
+  <style>Mouth Music</style>
+  <style>Movie Effects</style>
+  <style>Mugham</style>
+  <style>Musette</style>
+  <style>Music Hall</style>
+  <style>Music Video</style>
+  <style>Musical</style>
+  <style>Musique Concrète</style>
+  <style>Música Criolla</style>
+  <style>NDW</style>
+  <style>Nagauta</style>
+  <style>Neo Soul</style>
+  <style>Neo Trance</style>
+  <style>Neo-Classical</style>
+  <style>Neo-Classical Metal</style>
+  <style>Neo-Romantic</style>
+  <style>Neofolk</style>
+  <style>Neopagan</style>
+  <style>Nerdcore Techno</style>
+  <style>New Age</style>
+  <style>New Beat</style>
+  <style>New Jack Swing</style>
+  <style>New Wave</style>
+  <style>Nhạc Vàng</style>
+  <style>Nintendocore</style>
+  <style>No Wave</style>
+  <style>Nocturne</style>
+  <style>Noise</style>
+  <style>Noise Rock</style>
+  <style>Noisecore</style>
+  <style>Nordic</style>
+  <style>Norteño</style>
+  <style>Novelty</style>
+  <style>Nu Metal</style>
+  <style>Nu-Disco</style>
+  <style>Nueva Cancion</style>
+  <style>Nueva Trova</style>
+  <style>Nursery Rhymes</style>
+  <style>Néo Kyma</style>
+  <style>Népzene</style>
+  <style>Occitan</style>
+  <style>Occult</style>
+  <style>Oi</style>
+  <style>Ojkača</style>
+  <style>Opera</style>
+  <style>Operetta</style>
+  <style>Oratorio</style>
+  <style>Orchestra</style>
+  <style>Organ</style>
+  <style>Ottoman Classical</style>
+  <style>Overtone Singing</style>
+  <style>Overture</style>
+  <style>P.Funk</style>
+  <style>Pachanga</style>
+  <style>Pacific</style>
+  <style>Pagode</style>
+  <style>Parody</style>
+  <style>Pasodoble</style>
+  <style>Passion</style>
+  <style>Percussion Ensemble</style>
+  <style>Persian Classical</style>
+  <style>Persian Pop</style>
+  <style>Philippine Classical</style>
+  <style>Phleng Phuea Chiwit</style>
+  <style>Phonk</style>
+  <style>Piano</style>
+  <style>Piano Blues</style>
+  <style>Piedmont Blues</style>
+  <style>Piobaireachd</style>
+  <style>Pipe &amp; Drum</style>
+  <style>Plainchant</style>
+  <style>Plena</style>
+  <style>Plunderphonics</style>
+  <style>Poetry</style>
+  <style>Political</style>
+  <style>Polka</style>
+  <style>Pop Punk</style>
+  <style>Pop Rap</style>
+  <style>Pop Rock</style>
+  <style>Pornogrind</style>
+  <style>Porro</style>
+  <style>Post Bop</style>
+  <style>Post Rock</style>
+  <style>Post-Grunge</style>
+  <style>Post-Hardcore</style>
+  <style>Post-Metal</style>
+  <style>Post-Modern</style>
+  <style>Post-Punk</style>
+  <style>Power Electronics</style>
+  <style>Power Metal</style>
+  <style>Power Pop</style>
+  <style>Power Violence</style>
+  <style>Prelude</style>
+  <style>Prog Rock</style>
+  <style>Program Music</style>
+  <style>Progressive Bluegrass</style>
+  <style>Progressive Breaks</style>
+  <style>Progressive House</style>
+  <style>Progressive Metal</style>
+  <style>Progressive Trance</style>
+  <style>Promotional</style>
+  <style>Psy-Trance</style>
+  <style>Psychedelic</style>
+  <style>Psychedelic Rock</style>
+  <style>Psychobilly</style>
+  <style>Pub Rock</style>
+  <style>Public Broadcast</style>
+  <style>Public Service Announcement</style>
+  <style>Punk</style>
+  <style>Qawwali</style>
+  <style>Quechua</style>
+  <style>Radioplay</style>
+  <style>Ragga</style>
+  <style>Ragga HipHop</style>
+  <style>Ragtime</style>
+  <style>Ranchera</style>
+  <style>Rapso</style>
+  <style>Rara</style>
+  <style>Raï</style>
+  <style>Rebetiko</style>
+  <style>Reggae</style>
+  <style>Reggae Gospel</style>
+  <style>Reggae-Pop</style>
+  <style>Reggaeton</style>
+  <style>Religious</style>
+  <style>Renaissance</style>
+  <style>Requiem</style>
+  <style>Rhapsody</style>
+  <style>Rhythm &amp; Blues</style>
+  <style>Rhythmic Noise</style>
+  <style>RnB/Swing</style>
+  <style>Rock &amp; Roll</style>
+  <style>Rock Opera</style>
+  <style>Rockabilly</style>
+  <style>Rocksteady</style>
+  <style>Romani</style>
+  <style>Romantic</style>
+  <style>Roots Reggae</style>
+  <style>Rumba</style>
+  <style>Rune Singing</style>
+  <style>Russian Pop</style>
+  <style>Ryūkōka</style>
+  <style>Rōkyoku</style>
+  <style>Salegy</style>
+  <style>Salsa</style>
+  <style>Samba</style>
+  <style>Samba-Canção</style>
+  <style>Sankyoku</style>
+  <style>Schlager</style>
+  <style>Schranz</style>
+  <style>Score</style>
+  <style>Screamo</style>
+  <style>Screw</style>
+  <style>Sea Shanties</style>
+  <style>Sean-nós</style>
+  <style>Sephardic</style>
+  <style>Serenade</style>
+  <style>Seresta</style>
+  <style>Serial</style>
+  <style>Sermon</style>
+  <style>Sertanejo</style>
+  <style>Shaabi</style>
+  <style>Shibuya-Kei</style>
+  <style>Shidaiqu</style>
+  <style>Shinkyoku</style>
+  <style>Shoegaze</style>
+  <style>Shomyo</style>
+  <style>Singeli</style>
+  <style>Singspiel</style>
+  <style>Ska</style>
+  <style>Skiffle</style>
+  <style>Skweee</style>
+  <style>Slowcore</style>
+  <style>Sludge Metal</style>
+  <style>Smooth Jazz</style>
+  <style>Snap</style>
+  <style>Soca</style>
+  <style>Soft Rock</style>
+  <style>Sokyoku</style>
+  <style>Solo</style>
+  <style>Son</style>
+  <style>Son Montuno</style>
+  <style>Sonata</style>
+  <style>Sonero</style>
+  <style>Soukous</style>
+  <style>Soul</style>
+  <style>Soul-Jazz</style>
+  <style>Sound Art</style>
+  <style>Sound Collage</style>
+  <style>Sound Poetry</style>
+  <style>Soundtrack</style>
+  <style>Southern Rock</style>
+  <style>Space Rock</style>
+  <style>Space-Age</style>
+  <style>Spaza</style>
+  <style>Special Effects</style>
+  <style>Spectralism</style>
+  <style>Speech</style>
+  <style>Speed Garage</style>
+  <style>Speed Metal</style>
+  <style>Speedcore</style>
+  <style>Spiritual Jazz</style>
+  <style>Spirituals</style>
+  <style>Spoken Word</style>
+  <style>Sport</style>
+  <style>Steel Band</style>
+  <style>Stoner Rock</style>
+  <style>Story</style>
+  <style>Stride</style>
+  <style>String Ensemble</style>
+  <style>String Instrument</style>
+  <style>Style Galant</style>
+  <style>Suite</style>
+  <style>Sunshine Pop</style>
+  <style>Suomisaundi</style>
+  <style>Surf</style>
+  <style>Swamp Pop</style>
+  <style>Swing</style>
+  <style>Swingbeat</style>
+  <style>Symphonic Metal</style>
+  <style>Symphonic Rock</style>
+  <style>Symphony</style>
+  <style>Synth-pop</style>
+  <style>Synthpunk</style>
+  <style>Synthwave</style>
+  <style>Sámi Music</style>
+  <style>Séga</style>
+  <style>Taarab</style>
+  <style>Tamburitza</style>
+  <style>Tamil Film Music</style>
+  <style>Tango</style>
+  <style>Te Deum</style>
+  <style>Tech House</style>
+  <style>Tech Trance</style>
+  <style>Technical</style>
+  <style>Technical Death Metal</style>
+  <style>Techno</style>
+  <style>Tejano</style>
+  <style>Texas Blues</style>
+  <style>Thai Classical</style>
+  <style>Theme</style>
+  <style>Theme With Variations</style>
+  <style>Therapy</style>
+  <style>Thrash</style>
+  <style>Thug Rap</style>
+  <style>Timba</style>
+  <style>Toasting</style>
+  <style>Tone Poem</style>
+  <style>Trallalero</style>
+  <style>Trance</style>
+  <style>Trap</style>
+  <style>Tribal</style>
+  <style>Tribal House</style>
+  <style>Trip Hop</style>
+  <style>Tropical House</style>
+  <style>Trova</style>
+  <style>Turntablism</style>
+  <style>Twelve-tone</style>
+  <style>Twist</style>
+  <style>UK Funky</style>
+  <style>UK Garage</style>
+  <style>UK Street Soul</style>
+  <style>Unblack Metal</style>
+  <style>V-pop</style>
+  <style>Vallenato</style>
+  <style>Vaporwave</style>
+  <style>Vaudeville</style>
+  <style>Verismo</style>
+  <style>Video Game Music</style>
+  <style>Viking Metal</style>
+  <style>Villancicos</style>
+  <style>Vocal</style>
+  <style>Vocaloid</style>
+  <style>Volksmusik</style>
+  <style>Waiata</style>
+  <style>Western Swing</style>
+  <style>Wind Ensemble</style>
+  <style>Witch House</style>
+  <style>Woodwind Instrument</style>
+  <style>Yemenite Jewish</style>
+  <style>Yoruba</style>
+  <style>Yé-Yé</style>
+  <style>Zamba</style>
+  <style>Zarzuela</style>
+  <style>Zemer Ivri</style>
+  <style>Zhongguo Feng</style>
+  <style>Zouk</style>
+  <style>Zydeco</style>
+  <style>Éntekhno</style>
+</styles>

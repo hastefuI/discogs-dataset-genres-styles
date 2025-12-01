@@ -1,0 +1,57 @@
+{
+  "name": "discogs-dataset-genres-styles",
+  "version": "1.6.0",
+  "description": "A list of genres and styles extracted from the official Discogs Data Dump that's published monthly as a dataset.",
+  "type": "commonjs",
+  "main": "./index.cjs",
+  "module": "./index.mjs",
+  "types": "./index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./index.cjs",
+      "import": "./index.mjs",
+      "types": "./index.d.ts"
+    },
+    "./genres": {
+      "require": "./dist/genres.json",
+      "types": "./types/genres.d.ts"
+    },
+    "./styles": {
+      "require": "./dist/styles.json",
+      "types": "./types/styles.d.ts"
+    }
+  },
+  "files": [
+    "index.mjs",
+    "index.cjs",
+    "index.d.ts",
+    "types/",
+    "dist/",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node --test"
+  },
+  "sideEffects": false,
+  "keywords": [
+    "discogs",
+    "genres",
+    "styles",
+    "music-genres",
+    "music-metadata",
+    "dataset",
+    "json",
+    "csv"
+  ],
+  "author": "hasteful <github@hasteful.org>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hastefuI/discogs-dataset-genres-styles.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hastefuI/discogs-dataset-genres-styles/issues"
+  },
+  "homepage": "https://github.com/hastefuI/discogs-dataset-genres-styles#readme"
+}
