@@ -30,7 +30,7 @@ console.log(styles); // ["House", "Techno", "Alternative Rock", ...]
 ```
 
 ## Last Updated
-<!-- LAST_UPDATED -->discogs_20251101_releases.xml.gz (extracted 01 December 2025)
+<!-- LAST_UPDATED -->discogs_20251201_releases.xml.gz (extracted 02 December 2025)
 
 ## License
 
