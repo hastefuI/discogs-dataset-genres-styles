@@ -38,7 +38,7 @@ console.log(styles); // ["House", "Techno", "Alternative Rock", ...]
 
 This repository is up to date with the latest Discogs Data Dump published on:
 
-<!-- LAST_UPDATED -->discogs_20260101_releases.xml.gz (extracted 02 January 2026)
+<!-- LAST_UPDATED -->discogs_20260101_releases.xml.gz (extracted 14 January 2026)
 
 ## License
 
