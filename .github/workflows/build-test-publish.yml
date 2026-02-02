@@ -36,25 +36,23 @@ jobs:
         run: |
           set -euo pipefail
 
-          S3_BUCKET="https://discogs-data-dumps.s3-us-west-2.amazonaws.com"
+          DATA_BASE="https://data.discogs.com"
           YEAR=$(date +%Y)
 
           echo "Fetching latest Discogs releases data dump for year $YEAR ..."
 
-          LATEST_KEY=$(
-            curl -s "${S3_BUCKET}/?prefix=data/${YEAR}/" \
-              | grep -oE '<Key>data/[0-9]{4}/discogs_[0-9]{8}_releases\.xml\.gz</Key>' \
-              | sed 's/<Key>\(.*\)<\/Key>/\1/' \
+          FILENAME=$(
+            curl -s "${DATA_BASE}/?prefix=data/${YEAR}/" \
+              | grep -oE 'discogs_[0-9]{8}_releases\.xml\.gz' \
               | sort -V \
               | tail -1
           )
 
-          if [[ -z "${LATEST_KEY}" ]]; then
+          if [[ -z "${FILENAME}" ]]; then
             echo "Error: Could not find data dump." >&2
             exit 1
           fi
 
-          FILENAME=$(basename "${LATEST_KEY}")
           echo "Latest releases dump filename: ${FILENAME}"
           echo "FILENAME=${FILENAME}" >> "$GITHUB_ENV"
           echo "filename=${FILENAME}" >> "$GITHUB_OUTPUT"

@@ -7,7 +7,7 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-S3_BUCKET="https://discogs-data-dumps.s3-us-west-2.amazonaws.com"
+DATA_BASE="https://data.discogs.com"
 
 (( $# == 1 )) || { echo "Usage: $0 discogs_YYYYMMDD_releases.xml.gz" >&2; exit 1; }
 
@@ -22,9 +22,9 @@ DUMP_DATE="${BASH_REMATCH[1]}"
 YEAR="${DUMP_DATE:0:4}"
 KEY_DIR="data/${YEAR}"
 
-URL="${S3_BUCKET}/${KEY_DIR}/${FILENAME}"
+URL="${DATA_BASE}/?download=${KEY_DIR}/${FILENAME}"
 CHECKSUM_FILE="discogs_${DUMP_DATE}_CHECKSUM.txt"
-CHECKSUM_URL="${S3_BUCKET}/${KEY_DIR}/${CHECKSUM_FILE}"
+CHECKSUM_URL="${DATA_BASE}/?download=${KEY_DIR}/${CHECKSUM_FILE}"
 
 echo "Using releases dump: ${FILENAME}"
 echo "Date: ${DUMP_DATE} | Year: ${YEAR}"
