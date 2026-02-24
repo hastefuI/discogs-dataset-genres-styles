@@ -66,7 +66,8 @@ commit_data_changes_if_any() {
   fi
 
   echo "Committing data changes ..."
-  git commit -m "chore: update genres/styles from ${SOURCE_FILE}
+  git commit -m "chore(release): update genres/styles from ${SOURCE_FILE}
+
     Source: ${SOURCE_FILE}
     Date: ${EXTRACTED_DATE}"
   git push origin HEAD
@@ -94,7 +95,7 @@ bump_version_and_set_release_metadata() {
 
 commit_version_bump() {
   echo "Committing version bump ..."
-  git commit -m "chore: bump version to v${PKG_VERSION}
+  git commit -m "chore(release): bump version to v${PKG_VERSION}
     Source: ${SOURCE_FILE}
     Date: ${EXTRACTED_DATE}"
   git push origin HEAD

@@ -114,8 +114,8 @@ jobs:
 
       - name: Configure git user
         run: |
-          git config --local user.email "${{ github.actor }}@users.noreply.github.com"
-          git config --local user.name "${{ github.actor }}"
+          git config --local user.email "${{ vars.GIT_USER_EMAIL }}"
+          git config --local user.name "${{ vars.GIT_USER_NAME }}"
 
       - name: Publish changes upstream
         id: publish_changes
