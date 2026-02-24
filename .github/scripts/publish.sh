@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
-# Updates README, commits genres and styles, optionally bumps version,
-# tags release, and publishes to NPM when SHOULD_RELEASE=true.
+# Usage: ./publish.sh discogs_YYYYMMDD_releases.xml.gz [SHOULD_RELEASE]
+# Produces: Updated README, git commit/tag, and npm package (if SHOULD_RELEASE=true)
+# Requirements: git, npm, jq, perl, grep
 
 set -euo pipefail
 IFS=$'\n\t'

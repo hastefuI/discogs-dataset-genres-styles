@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
-# Extracts a list of genres and styles from a given Discogs Data Dump Release
+# Extracts a list of genres and styles from a given Discogs Data Dump Release.
+# Usage: ./discogs-extract-genres-styles.sh discogs_YYYYMMDD_releases.xml.gz
+# Produces: dist/genres.{json,csv,xml} and dist/styles.{json,csv,xml}
 # Requirements: pigz, jq, grep, sed, awk, sort
 
 set -euo pipefail
@@ -16,6 +18,35 @@ mkdir -p dist
 
 TMP_DIR=$(mktemp -d)
 trap 'rm -rf "$TMP_DIR"' EXIT
+
+export_csv() {
+  local header="$1" input="$2" output="$3"
+  {
+    echo "$header"
+    while IFS= read -r line; do
+      [ -z "$line" ] && continue
+      esc=${line//\"/\"\"}
+      printf '"%s"\n' "$esc"
+    done < "$input"
+  } > "$output"
+}
+
+export_xml() {
+  local root="$1" element="$2" input="$3" output="$4"
+  {
+    echo '<?xml version="1.0" encoding="UTF-8"?>'
+    echo "<${root}>"
+    while IFS= read -r line; do
+      [ -z "$line" ] && continue
+      esc=$(printf '%s' "$line" \
+        | sed -e 's/&/\&amp;/g' \
+              -e 's/</\&lt;/g' \
+              -e 's/>/\&gt;/g')
+      printf '  <%s>%s</%s>\n' "$element" "$esc" "$element"
+    done < "$input"
+    echo "</${root}>"
+  } > "$output"
+}
 
 echo "Extracting genres and styles from ${FILENAME} (this may take a moment) ..."
 
@@ -43,50 +74,12 @@ jq -R -s 'split("\n") | map(select(length > 0))' < "${GENRES_SORTED}" > dist/gen
 jq -R -s 'split("\n") | map(select(length > 0))' < "${STYLES_SORTED}" > dist/styles.json
 
 echo "Exporting CSV ..."
-{
-  echo "genre"
-  while IFS= read -r line; do
-    esc=${line//\"/\"\"}
-    printf "\"%s\"\n" "$esc"
-  done < "${GENRES_SORTED}"
-} > dist/genres.csv
-
-{
-  echo "style"
-  while IFS= read -r line; do
-    esc=${line//\"/\"\"}
-    printf "\"%s\"\n" "$esc"
-  done < "${STYLES_SORTED}"
-} > dist/styles.csv
+export_csv "genre" "${GENRES_SORTED}" "dist/genres.csv"
+export_csv "style" "${STYLES_SORTED}" "dist/styles.csv"
 
 echo "Exporting XML ..."
-{
-  echo '<?xml version="1.0" encoding="UTF-8"?>'
-  echo '<genres>'
-  while IFS= read -r line; do
-    [ -z "$line" ] && continue
-    esc=$(printf '%s' "$line" \
-      | sed -e 's/&/\&amp;/g' \
-            -e 's/</\&lt;/g' \
-            -e 's/>/\&gt;/g')
-    printf '  <genre>%s</genre>\n' "$esc"
-  done < "${GENRES_SORTED}"
-  echo '</genres>'
-} > dist/genres.xml
-
-{
-  echo '<?xml version="1.0" encoding="UTF-8"?>'
-  echo '<styles>'
-  while IFS= read -r line; do
-    [ -z "$line" ] && continue
-    esc=$(printf '%s' "$line" \
-      | sed -e 's/&/\&amp;/g' \
-            -e 's/</\&lt;/g' \
-            -e 's/>/\&gt;/g')
-    printf '  <style>%s</style>\n' "$esc"
-  done < "${STYLES_SORTED}"
-  echo '</styles>'
-} > dist/styles.xml
+export_xml "genres" "genre" "${GENRES_SORTED}" "dist/genres.xml"
+export_xml "styles" "style" "${STYLES_SORTED}" "dist/styles.xml"
 
 echo "Completed export of genres and styles dataset"
 echo "genres.json: $(jq length dist/genres.json) total entries"

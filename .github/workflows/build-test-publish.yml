@@ -35,47 +35,32 @@ jobs:
         id: determine_dump
         run: |
           set -euo pipefail
-
-          DATA_BASE="https://data.discogs.com"
-          YEAR=$(date +%Y)
-
-          echo "Fetching latest Discogs releases data dump for year $YEAR ..."
-
-          FILENAME=$(
-            curl -s "${DATA_BASE}/?prefix=data/${YEAR}/" \
-              | grep -oE 'discogs_[0-9]{8}_releases\.xml\.gz' \
-              | sort -V \
-              | tail -1
-          )
-
-          if [[ -z "${FILENAME}" ]]; then
-            echo "Error: Could not find data dump." >&2
-            exit 1
-          fi
-
-          echo "Latest releases dump filename: ${FILENAME}"
-          echo "FILENAME=${FILENAME}" >> "$GITHUB_ENV"
-          echo "filename=${FILENAME}" >> "$GITHUB_OUTPUT"
+          chmod +x scripts/discogs-fetch-data-dump.sh
+          {
+            echo "filename<<EOF"
+            scripts/discogs-fetch-data-dump.sh
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
 
       - name: Download latest Discogs Data Dump for Releases
         id: download_dump
         run: |
           set -euo pipefail
-          chmod +x scripts/download-data-dump.sh
-          scripts/download-data-dump.sh "$FILENAME"
+          chmod +x scripts/discogs-download-data-dump.sh
+          scripts/discogs-download-data-dump.sh "${{ steps.determine_dump.outputs.filename }}"
 
       - name: Extract latest genres & styles
         id: extract
         run: |
           set -euo pipefail
-          chmod +x scripts/extract-genres-styles.sh
-          scripts/extract-genres-styles.sh "$FILENAME"
+          chmod +x scripts/discogs-extract-genres-styles.sh
+          scripts/discogs-extract-genres-styles.sh "${{ steps.determine_dump.outputs.filename }}"
 
       - name: Housekeeping
         if: always()
         run: |
           set -euo pipefail
-          rm -f "$FILENAME" discogs_*_CHECKSUM.txt || true
+          rm -f "${{ steps.determine_dump.outputs.filename }}" discogs_*_CHECKSUM.txt || true
 
       - name: Upload dist artifact
         uses: actions/upload-artifact@v4
