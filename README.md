@@ -1,5 +1,5 @@
-# discogs-dataset-genre-styles [![build status](https://github.com/hastefuI/discogs-dataset-genres-styles/actions/workflows/build-test-publish.yml/badge.svg?branch=main)](https://github.com/hastefuI/discogs-dataset-genre-styles/actions/workflows/build-test-publish.yml) [![npm](https://img.shields.io/npm/v/discogs-dataset-genres-styles.svg)](https://www.npmjs.com/package/discogs-dataset-genres-styles) [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/hastefuI/discogs-dataset-genre-styles/blob/main/LICENSE)
-A list of genres and styles extracted from the official [Discogs Data Dump](https://data.discogs.com) that's published monthly as a dataset when new genres and styles become available.
+# discogs-dataset-genres-styles [![build status](https://github.com/hastefuI/discogs-dataset-genres-styles/actions/workflows/build-test-publish.yml/badge.svg?branch=main)](https://github.com/hastefuI/discogs-dataset-genre-styles/actions/workflows/build-test-publish.yml) [![npm](https://img.shields.io/npm/v/discogs-dataset-genres-styles.svg)](https://www.npmjs.com/package/discogs-dataset-genres-styles) [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/hastefuI/discogs-dataset-genre-styles/blob/main/LICENSE)
+A list of genres and styles extracted from the official [Discogs Data Dump](https://data.discogs.com) that's published monthly as a dataset.
 
 ## Overview
 
