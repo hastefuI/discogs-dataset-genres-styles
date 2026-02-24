@@ -8,17 +8,19 @@
   "types": "./index.d.ts",
   "exports": {
     ".": {
-      "require": "./index.cjs",
+      "types": "./index.d.ts",
       "import": "./index.mjs",
-      "types": "./index.d.ts"
+      "require": "./index.cjs"
     },
     "./genres": {
-      "require": "./dist/genres.json",
-      "types": "./types/genres.d.ts"
+      "types": "./types/genres.d.ts",
+      "import": "./dist/genres.json",
+      "require": "./dist/genres.json"
     },
     "./styles": {
-      "require": "./dist/styles.json",
-      "types": "./types/styles.d.ts"
+      "types": "./types/styles.d.ts",
+      "import": "./dist/styles.json",
+      "require": "./dist/styles.json"
     }
   },
   "files": [
@@ -42,7 +44,8 @@
     "music-metadata",
     "dataset",
     "json",
-    "csv"
+    "csv",
+    "xml"
   ],
   "author": "hasteful <github@hasteful.org>",
   "license": "MIT",

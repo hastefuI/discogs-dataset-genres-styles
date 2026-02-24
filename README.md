@@ -34,11 +34,58 @@ console.log(genres); // ["Electronic", "Rock", "Jazz", ...]
 console.log(styles); // ["House", "Techno", "Alternative Rock", ...]
 ```
 
+## Examples
+
+### HTMX
+
+Server-side (Express):
+```javascript
+import { genres } from 'discogs-dataset-genres-styles';
+
+app.get('/genres', (req, res) => {
+  const html = genres.map(genre => `<option>${genre}</option>`).join('');
+  res.send(html);
+});
+```
+
+Client-side:
+```xml
+<select hx-get="/genres" hx-trigger="load"></select>
+```
+
+### React
+
+```javascript
+import { genres } from 'discogs-dataset-genres-styles';
+
+function GenreSelect({ value, onChange }) {
+  return (
+    <select value={value} onChange={e => onChange(e.target.value)}>
+      {genres.map(genre => <option key={genre}>{genre}</option>)}
+    </select>
+  );
+}
+```
+
+### Vue
+
+```javascript
+<script setup>
+import { genres } from 'discogs-dataset-genres-styles';
+</script>
+
+<template>
+  <select>
+    <option v-for="genre in genres" :key="genre">{{ genre }}</option>
+  </select>
+</template>
+```
+
 ## Last Updated
 
 This repository is up to date with the latest Discogs Data Dump published on:
 
-<!-- LAST_UPDATED -->discogs_20260201_releases.xml.gz (extracted 03 February 2026)
+<!-- LAST_UPDATED -->discogs_20260201_releases.xml.gz (extracted 24 February 2026)
 
 ## License
 

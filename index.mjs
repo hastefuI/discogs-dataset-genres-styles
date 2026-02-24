@@ -1,7 +1,7 @@
 // index.mjs
-import pkg from "./index.cjs";
+import { createRequire } from "node:module";
 
-export const genres = pkg.genres;
-export const styles = pkg.styles;
-
-export default pkg;
+const require = createRequire(import.meta.url);
+export const genres = require("./dist/genres.json");
+export const styles = require("./dist/styles.json");
+export default { genres, styles };
