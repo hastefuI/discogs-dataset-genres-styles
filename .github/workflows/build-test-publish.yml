@@ -122,14 +122,14 @@ jobs:
         env:
           SOURCE_FILE: ${{ needs.extract.outputs.source_file }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SHOULD_RELEASE: ${{ github.event.inputs.should_release == 'true' }}
+          SHOULD_RELEASE: ${{ github.event_name == 'schedule' || github.event.inputs.should_release == 'true' }}
         run: |
           set -euo pipefail
           chmod +x .github/scripts/publish.sh
           .github/scripts/publish.sh "$SOURCE_FILE" "$SHOULD_RELEASE"
 
       - name: Create GitHub Release using GH CLI
-        if: ${{ github.event.inputs.should_release == 'true' }}
+        if: ${{ github.event_name == 'schedule' || github.event.inputs.should_release == 'true' }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SOURCE_FILE: ${{ needs.extract.outputs.source_file }}
