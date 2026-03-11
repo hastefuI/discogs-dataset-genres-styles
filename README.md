@@ -83,9 +83,9 @@ import { genres } from 'discogs-dataset-genres-styles';
 
 ## Last Updated
 
-This repository is up to date with the latest Discogs Data Dump published on:
+This repository is up to date with the Discogs Data Dump last published:
 
-<!-- LAST_UPDATED -->discogs_20260301_releases.xml.gz (extracted 02 March 2026)
+<!-- LAST_UPDATED -->discogs_20260301_releases.xml.gz [6e142f1c] (extracted 2026-03-02)
 
 ## License
 

@@ -104,3 +104,7 @@ fi
 
 echo "Checksum OK for ${OUTPUT}"
 echo "Download completed $(du -h "$OUTPUT" | cut -f1)"
+
+if [[ -n "${GITHUB_OUTPUT:-}" ]]; then
+  echo "checksum=${expected_hash}" >> "$GITHUB_OUTPUT"
+fi

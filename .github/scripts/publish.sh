@@ -11,6 +11,7 @@ DIST_DIR="dist"
 MARKER="<!-- LAST_UPDATED -->"
 
 SOURCE_FILE=""
+SOURCE_CHECKSUM="${SOURCE_CHECKSUM:-}"
 DUMP_DATE=""
 EXTRACTED_DATE=""
 PKG_VERSION=""
@@ -32,7 +33,7 @@ require_source_file() {
   fi
 
   DUMP_DATE="${BASH_REMATCH[1]}"
-  EXTRACTED_DATE=$(date '+%d %B %Y')
+  EXTRACTED_DATE=$(date '+%Y-%m-%d')
 
   echo "Source file: $SOURCE_FILE"
   echo "Dump date: $DUMP_DATE"
@@ -41,7 +42,12 @@ require_source_file() {
 }
 
 update_readme() {
-  local updated_line="${MARKER}${SOURCE_FILE} (extracted ${EXTRACTED_DATE})"
+  local checksum_part=""
+  if [[ -n "$SOURCE_CHECKSUM" ]]; then
+    local short_checksum="${SOURCE_CHECKSUM:0:8}"
+    checksum_part=" [${short_checksum}]"
+  fi
+  local updated_line="${MARKER}${SOURCE_FILE}${checksum_part} (extracted ${EXTRACTED_DATE})"
 
   echo "Updated line: $updated_line"
 
