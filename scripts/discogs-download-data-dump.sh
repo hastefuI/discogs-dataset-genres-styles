@@ -9,6 +9,8 @@ IFS=$'\n\t'
 
 TARGET="https://data.discogs.com"
 
+USER_AGENT="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+
 usage() {
   echo "Usage: $0 discogs_YYYYMMDD_releases.xml.gz [-o output.xml.gz]" >&2
   exit 1
@@ -62,7 +64,7 @@ download_file() {
   tmp=$(mktemp "${outfile}.XXXXXX")
   CLEANUP_FILES+=("$tmp")
 
-  if curl -fL --fail --silent --show-error --output "$tmp" "$url"; then
+  if curl -fL --fail --silent --show-error -A "${USER_AGENT}" --retry 3 --retry-delay 5 --output "$tmp" "$url"; then
     mv "$tmp" "$outfile"
   else
     echo "Failed to download from $url" >&2
