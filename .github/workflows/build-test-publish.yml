@@ -37,11 +37,11 @@ jobs:
         run: |
           set -euo pipefail
           chmod +x scripts/discogs-fetch-data-dump.sh
-          {
-            echo "filename<<EOF"
-            scripts/discogs-fetch-data-dump.sh
-            echo "EOF"
-          } >> "$GITHUB_OUTPUT"
+          # Capture first so a script failure aborts the step cleanly (with the script's
+          # real exit code and stderr) instead of leaving a dangling heredoc delimiter in
+          # $GITHUB_OUTPUT. The filename is always a single line, so no heredoc is needed.
+          filename="$(scripts/discogs-fetch-data-dump.sh)"
+          echo "filename=${filename}" >> "$GITHUB_OUTPUT"
 
       - name: Download latest Discogs Data Dump for Releases
         id: download_dump
