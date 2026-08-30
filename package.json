@@ -35,6 +35,10 @@
   "scripts": {
     "test": "node --test"
   },
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "packageManager": "npm@11.6.2",
   "sideEffects": false,
   "keywords": [
     "discogs",
