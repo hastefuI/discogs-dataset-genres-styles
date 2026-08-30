@@ -1,4 +1,4 @@
-name: Build
+name: Dataset Update
 
 on:
   schedule:
@@ -10,9 +10,6 @@ on:
         required: false
         default: false
         type: boolean
-
-  push:
-    branches: [ main ]
 
 jobs:
   extract:
