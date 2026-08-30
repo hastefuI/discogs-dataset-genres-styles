@@ -1,7 +1,6 @@
 // index.mjs
-import { createRequire } from "node:module";
+import genres from "./dist/genres.json" with { type: "json" };
+import styles from "./dist/styles.json" with { type: "json" };
 
-const require = createRequire(import.meta.url);
-export const genres = require("./dist/genres.json");
-export const styles = require("./dist/styles.json");
+export { genres, styles };
 export default { genres, styles };
