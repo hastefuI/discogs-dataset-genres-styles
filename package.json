@@ -14,12 +14,12 @@
     },
     "./genres": {
       "types": "./types/genres.d.ts",
-      "import": "./dist/genres.json",
+      "import": "./genres.mjs",
       "require": "./dist/genres.json"
     },
     "./styles": {
       "types": "./types/styles.d.ts",
-      "import": "./dist/styles.json",
+      "import": "./styles.mjs",
       "require": "./dist/styles.json"
     }
   },
@@ -27,6 +27,8 @@
     "index.mjs",
     "index.cjs",
     "index.d.ts",
+    "genres.mjs",
+    "styles.mjs",
     "types/",
     "dist/",
     "README.md",
