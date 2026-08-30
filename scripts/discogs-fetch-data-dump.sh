@@ -1,37 +1,77 @@
 #!/usr/bin/env bash
-# Fetches the latest Discogs Data Dump releases filename for the current year.
+# Fetches the latest Discogs Data Dump releases filename.
 # Usage: ./discogs-fetch-data-dump.sh
 # Produces: Outputs the latest releases dump filename (e.g., discogs_20260201_releases.xml.gz)
-# Requirements: curl, grep, sort
+# Requirements: curl, grep, sort, mktemp
 
 set -euo pipefail
 
 TARGET="https://data.discogs.com"
-YEAR=$(date +%Y)
 
 USER_AGENT="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
 
-echo "Fetching latest Discogs releases data dump for year $YEAR ..." >&2
+# Discogs publishes each dump on the first of the month, so the filename follows
+# from the date. Probe the derived name before asking for a directory listing.
+derived_filename() {
+  printf 'discogs_%04d%02d01_releases.xml.gz' "$1" "$2"
+}
 
-# Fetch the listing first so transient network/HTTP failures surface clearly and are
-# retried (-f fails on HTTP errors, -S shows them), kept separate from the "no matching
-# file" case handled by the empty-check below.
-LISTING=$(curl -fsS -A "${USER_AGENT}" --retry 3 --retry-delay 5 --max-time 60 "${TARGET}/?prefix=data/${YEAR}/")
+# Reports the HTTP status for a dump, or 000 if the request itself failed. The
+# status separates a dump that is not published yet (404) from a request that
+# the server refused (403).
+probe_status() {
+  local filename="$1"
+  local year="${filename:8:4}"
+  curl -s -o /dev/null -I --http1.1 -A "${USER_AGENT}" --max-time 30 \
+    -w '%{http_code}' "${TARGET}/?download=data/${year}/${filename}" || printf '000'
+}
 
-# `grep` exits non-zero when it finds no match; `|| true` stops `set -e`/`pipefail` from
-# aborting here so the explicit empty-check below can emit a clear, actionable error
-# instead of the script dying opaquely mid-pipeline.
-FILENAME=$(
-  printf '%s\n' "${LISTING}" \
-    | grep -oE 'discogs_[0-9]{8}_releases\.xml\.gz' \
-    | sort -V \
-    | tail -1
-) || true
+try_derived() {
+  local year="$1" month="$2" label="$3"
+  local filename status
+  filename=$(derived_filename "$year" "$month")
+  status=$(probe_status "$filename")
+  echo "Probing ${label} dump ${filename} ... HTTP ${status}" >&2
+  if [[ "${status}" == "200" ]]; then
+    printf '%s' "${filename}"
+    return 0
+  fi
+  return 1
+}
 
-if [[ -z "${FILENAME}" ]]; then
-  echo "Error: Could not find a releases data dump for year ${YEAR}." >&2
-  exit 1
+try_listing() {
+  local year="$1"
+  local tmp status filename
+  tmp=$(mktemp)
+  status=$(curl -s -A "${USER_AGENT}" --retry 3 --retry-delay 5 --max-time 60 \
+    -o "${tmp}" -w '%{http_code}' "${TARGET}/?prefix=data/${year}/" || printf '000')
+  echo "Requesting the ${year} directory listing ... HTTP ${status}" >&2
+  filename=$(grep -oE 'discogs_[0-9]{8}_releases\.xml\.gz' "${tmp}" | sort -V | tail -1) || true
+  rm -f "${tmp}"
+  if [[ -n "${filename}" ]]; then
+    printf '%s' "${filename}"
+    return 0
+  fi
+  return 1
+}
+
+YEAR=$(date -u +%Y)
+MONTH=$((10#$(date -u +%m)))
+
+PREV_YEAR="${YEAR}"
+PREV_MONTH=$((MONTH - 1))
+if (( PREV_MONTH == 0 )); then
+  PREV_MONTH=12
+  PREV_YEAR=$((YEAR - 1))
 fi
 
-echo "Latest releases dump filename: ${FILENAME}" >&2
-echo "$FILENAME"
+if FILENAME=$(try_derived "${YEAR}" "${MONTH}" "current month") \
+  || FILENAME=$(try_derived "${PREV_YEAR}" "${PREV_MONTH}" "previous month") \
+  || FILENAME=$(try_listing "${YEAR}"); then
+  echo "Latest releases dump filename: ${FILENAME}" >&2
+  echo "${FILENAME}"
+else
+  echo "Error: Could not determine a releases dump filename." >&2
+  echo "The derived filename probe and the directory listing both failed." >&2
+  exit 1
+fi
