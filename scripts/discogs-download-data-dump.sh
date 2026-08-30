@@ -64,7 +64,7 @@ download_file() {
   tmp=$(mktemp "${outfile}.XXXXXX")
   CLEANUP_FILES+=("$tmp")
 
-  if curl -fL --fail --silent --show-error -A "${USER_AGENT}" --retry 3 --retry-delay 5 --output "$tmp" "$url"; then
+  if curl -fL --http1.1 --fail --silent --show-error -A "${USER_AGENT}" --retry 3 --retry-delay 5 --output "$tmp" "$url"; then
     mv "$tmp" "$outfile"
   else
     echo "Failed to download from $url" >&2
