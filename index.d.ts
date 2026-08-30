@@ -1,8 +1,8 @@
-export declare const genres: string[];
-export declare const styles: string[];
+export declare const genres: readonly string[];
+export declare const styles: readonly string[];
 
 declare const _default: {
-  genres: string[];
-  styles: string[];
+  genres: readonly string[];
+  styles: readonly string[];
 };
 export default _default;

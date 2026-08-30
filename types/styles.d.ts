@@ -1,4 +1,4 @@
 // types/styles.d.ts
-declare const styles: string[];
+declare const styles: readonly string[];
 
 export default styles;
