@@ -21,6 +21,21 @@ NPM:
 $ npm install discogs-dataset-genres-styles
 ```
 
+CDN:
+
+Every file in `dist/` is also served by [jsDelivr](https://www.jsdelivr.com) and [unpkg](https://unpkg.com), for direct use without an install:
+
+```
+https://cdn.jsdelivr.net/npm/discogs-dataset-genres-styles/dist/genres.json
+https://unpkg.com/discogs-dataset-genres-styles/dist/styles.csv
+```
+
+Add a version to pin a specific monthly release:
+
+```
+https://cdn.jsdelivr.net/npm/discogs-dataset-genres-styles@1.9.0/dist/genres.json
+```
+
 ## Usage
 
 ```javascript
@@ -35,6 +50,18 @@ console.log(styles); // ["House", "Techno", "Alternative Rock", ...]
 ```
 
 ## Examples
+
+### Browser (no build step)
+
+```javascript
+const genres = await fetch(
+  'https://cdn.jsdelivr.net/npm/discogs-dataset-genres-styles/dist/genres.json'
+).then(response => response.json());
+
+document.querySelector('select').append(
+  ...genres.map(genre => new Option(genre))
+);
+```
 
 ### HTMX
 
