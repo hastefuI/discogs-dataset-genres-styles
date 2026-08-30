@@ -114,8 +114,16 @@ This repository is up to date with the Discogs Data Dump last published:
 
 <!-- LAST_UPDATED -->discogs_20260401_releases.xml.gz [a345a5ff] (extracted 2026-04-02)
 
+## Data Source
+
+The genres and styles are extracted from the official [Discogs Data Dump](https://data.discogs.com). Discogs publishes that data under the [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/) public domain dedication.
+
+CC0 sets no conditions on reuse. The extracted dataset carries no attribution or share-alike obligations.
+
 ## License
 
-Licensed under [MIT License](https://opensource.org/licenses/MIT), see [LICENSE](./LICENSE) for details.
+The code in this repository is licensed under the [MIT License](https://opensource.org/licenses/MIT), see [LICENSE](./LICENSE) for details.
+
+The extracted dataset in [`dist/`](./dist) is derived from CC0 source data and is released under [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/).
 
 Copyright (c) 2025-present hasteful
