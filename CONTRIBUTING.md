@@ -19,7 +19,8 @@ Hand written:
 - `index.cjs`, `index.mjs`, `genres.mjs`, `styles.mjs`: the package entry points
 - `index.d.ts`, `types/`: the type declarations
 - `scripts/`: the download and extraction scripts
-- `test/`: the test suite
+- `test/`: the test suite, and `test/types.ts` for the type declarations
+- `examples/`: runnable usage examples
 
 Generated, so please do not edit these by hand:
 
@@ -33,7 +34,14 @@ Generated, so please do not edit these by hand:
 $ npm test
 ```
 
-The suite uses the Node test runner and takes a few seconds. It runs on every push and pull request.
+The suite uses the Node test runner and takes a few seconds.
+
+Every push and pull request runs four checks:
+
+1. `npm test`, the test suite.
+2. Each file in `examples/`, so an example cannot go stale.
+3. An esbuild browser bundle of `examples/browser.mjs`, which fails if the package gains a Node builtin.
+4. A `tsc` check of `test/types.ts`, which fails if the exported arrays stop being readonly.
 
 ## Updating the Dataset
 

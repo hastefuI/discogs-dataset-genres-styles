@@ -63,6 +63,8 @@ const styles = require('discogs-dataset-genres-styles/styles');
 
 ## Examples
 
+More examples, runnable with `node`, live in [`examples/`](./examples).
+
 ### Browser (no build step)
 
 ```javascript
