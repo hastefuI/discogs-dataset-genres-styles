@@ -22,3 +22,21 @@ jobs:
 
       - name: Run tests
         run: npm test
+
+      - name: Run the examples
+        run: |
+          set -euo pipefail
+          for example in examples/*.mjs; do
+            echo "--- $example"
+            node "$example"
+          done
+
+      - name: Bundle for the browser
+        run: >
+          npx --yes esbuild@0.25.0 examples/browser.mjs
+          --bundle --platform=browser --outfile=/dev/null
+
+      - name: Type check the declarations
+        run: >
+          npx --yes typescript@5.7.2 tsc --noEmit --strict --target es2022
+          --module nodenext --moduleResolution nodenext test/types.ts
