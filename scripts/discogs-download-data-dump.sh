@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Downloads and verifies a specific Discogs Data Dump release file.
-# Usage: ./discogs-download-data-dump.sh discogs_YYYYMMDD_releases.xml.gz [-o output.xml.gz]
-# Produces: Discogs Data Dump release file (default: same as input filename)
+# Usage: ./discogs-download-data-dump.sh discogs_YYYYMMDD_releases.xml.gz
+# Produces: Discogs Data Dump release file, named after the input filename
 # Requirements: curl, sha256sum, mktemp, grep
 
 set -euo pipefail
@@ -12,24 +12,13 @@ TARGET="https://data.discogs.com"
 USER_AGENT="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
 
 usage() {
-  echo "Usage: $0 discogs_YYYYMMDD_releases.xml.gz [-o output.xml.gz]" >&2
+  echo "Usage: $0 discogs_YYYYMMDD_releases.xml.gz" >&2
   exit 1
 }
 
 (( $# >= 1 )) || usage
 
 FILENAME="$1"
-shift
-
-OUTPUT=""
-while getopts ":o:" opt; do
-  case $opt in
-    o) OUTPUT="$OPTARG" ;;
-    *) usage ;;
-  esac
-done
-
-OUTPUT="${OUTPUT:-$FILENAME}"
 
 if [[ ! "$FILENAME" =~ ^discogs_([0-9]{8})_releases\.xml\.gz$ ]]; then
   echo "Error: Filename must match discogs_YYYYMMDD_releases.xml.gz" >&2
@@ -45,7 +34,6 @@ CHECKSUM_FILE="discogs_${DUMP_DATE}_CHECKSUM.txt"
 CHECKSUM_URL="${TARGET}/?download=${REMOTE_PATH}/${CHECKSUM_FILE}"
 
 echo "Using releases dump: ${FILENAME}"
-echo "Output file: ${OUTPUT}"
 echo "Date: ${DUMP_DATE} | Year: ${YEAR}"
 
 # Track temp files for cleanup
@@ -84,10 +72,10 @@ download_if_needed() {
   download_file "$url" "$outfile"
 }
 
-download_if_needed "$URL"            "$OUTPUT"         "$FILENAME"
+download_if_needed "$URL"            "$FILENAME"         "$FILENAME"
 download_if_needed "$CHECKSUM_URL"    "$CHECKSUM_FILE"  "checksum file"
 
-echo "Verifying checksum for ${OUTPUT} ..."
+echo "Verifying checksum for ${FILENAME} ..."
 
 if ! checksum_line=$(grep -F " ${FILENAME}" "$CHECKSUM_FILE"); then
   echo "Error: No checksum entry found for ${FILENAME} in ${CHECKSUM_FILE}" >&2
@@ -95,17 +83,17 @@ if ! checksum_line=$(grep -F " ${FILENAME}" "$CHECKSUM_FILE"); then
 fi
 
 expected_hash=$(echo "$checksum_line" | awk '{print $1}')
-actual_hash=$(sha256sum "$OUTPUT" | awk '{print $1}')
+actual_hash=$(sha256sum "$FILENAME" | awk '{print $1}')
 
 if [[ "$expected_hash" != "$actual_hash" ]]; then
-  echo "Checksum mismatch for ${OUTPUT}" >&2
+  echo "Checksum mismatch for ${FILENAME}" >&2
   echo "  Expected: ${expected_hash}" >&2
   echo "  Actual:   ${actual_hash}" >&2
   exit 1
 fi
 
-echo "Checksum OK for ${OUTPUT}"
-echo "Download completed $(du -h "$OUTPUT" | cut -f1)"
+echo "Checksum OK for ${FILENAME}"
+echo "Download completed $(du -h "$FILENAME" | cut -f1)"
 
 if [[ -n "${GITHUB_OUTPUT:-}" ]]; then
   echo "checksum=${expected_hash}" >> "$GITHUB_OUTPUT"

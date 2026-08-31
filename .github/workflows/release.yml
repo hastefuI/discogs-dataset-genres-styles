@@ -78,7 +78,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
-          .github/scripts/publish.sh "$SOURCE_FILE" true
+          .github/scripts/publish.sh "$SOURCE_FILE"
 
       - name: Create GitHub Release using GH CLI
         env:
