@@ -1,18 +1,18 @@
 // test/sanity.test.cjs
-const test = require('node:test');
-const assert = require('node:assert');
+const { describe, it } = require('node:test');
+
 const { genres, styles } = require('..');
 
-test('contains expected common genres', () => {
-  const expected = ['Electronic', 'Rock', 'Jazz', 'Hip Hop', 'Classical'];
-  expected.forEach(g => {
-    assert.ok(genres.includes(g), `Missing genre: ${g}`);
+describe('sanity', () => {
+  it('contains expected common genres', (t) => {
+    for (const genre of ['Electronic', 'Rock', 'Jazz', 'Hip Hop', 'Classical']) {
+      t.assert.ok(genres.includes(genre), `Missing genre: ${genre}`);
+    }
   });
-});
 
-test('contains expected common styles', () => {
-  const expected = ['House', 'Techno', 'Ambient', 'Punk', 'Memphis Blues'];
-  expected.forEach(s => {
-    assert.ok(styles.includes(s), `Missing style: ${s}`);
+  it('contains expected common styles', (t) => {
+    for (const style of ['House', 'Techno', 'Ambient', 'Punk', 'Memphis Blues']) {
+      t.assert.ok(styles.includes(style), `Missing style: ${style}`);
+    }
   });
 });

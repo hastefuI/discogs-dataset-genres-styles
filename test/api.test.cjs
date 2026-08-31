@@ -1,22 +1,19 @@
 // test/api.test.cjs
-const test = require('node:test');
-const assert = require('node:assert');
-const fs = require('node:fs');
-const path = require('node:path');
+const { describe, it } = require('node:test');
+const { readJson } = require('./helpers.cjs');
 
 const pkg = require('..');
 
-const dist = (file) => path.join(__dirname, '..', 'dist', file);
+describe('package entry point', () => {
+  it('exports genres and styles as arrays', (t) => {
+    t.assert.ok(Array.isArray(pkg.genres), 'genres should be an array');
+    t.assert.ok(Array.isArray(pkg.styles), 'styles should be an array');
+  });
 
-test('package exports genres and styles arrays', () => {
-  assert.ok(Array.isArray(pkg.genres), 'pkg.genres should be an array');
-  assert.ok(Array.isArray(pkg.styles), 'pkg.styles should be an array');
-});
-
-test('exports match dist JSON contents', () => {
-  const genresJson = JSON.parse(fs.readFileSync(dist('genres.json'), 'utf8'));
-  const stylesJson = JSON.parse(fs.readFileSync(dist('styles.json'), 'utf8'));
-
-  assert.deepStrictEqual(pkg.genres, genresJson, 'pkg.genres should match dist/genres.json');
-  assert.deepStrictEqual(pkg.styles, stylesJson, 'pkg.styles should match dist/styles.json');
+  // Reads from disk rather than require(), so this compares what the package
+  // exports against the files that ship in dist/.
+  it('exports match the files in dist/', (t) => {
+    t.assert.deepStrictEqual(pkg.genres, readJson('genres.json'));
+    t.assert.deepStrictEqual(pkg.styles, readJson('styles.json'));
+  });
 });

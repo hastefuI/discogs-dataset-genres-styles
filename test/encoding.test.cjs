@@ -1,23 +1,19 @@
 // test/encoding.test.cjs
-const test = require('node:test');
-const assert = require('node:assert');
-const fs = require('node:fs');
-const path = require('node:path');
+const { describe, it } = require('node:test');
+const { readJson } = require('./helpers.cjs');
 
-const dist = (file) => path.join(__dirname, '..', 'dist', file);
+const { genres, styles } = require('..');
 
-test('JSON files are valid UTF-8', () => {
-  ['genres.json', 'styles.json'].forEach(file => {
-    const content = fs.readFileSync(dist(file), 'utf8');
-    JSON.parse(content);
+describe('encoding', () => {
+  it('JSON files are valid UTF-8', (t) => {
+    t.assert.ok(Array.isArray(readJson('genres.json')));
+    t.assert.ok(Array.isArray(readJson('styles.json')));
   });
-});
 
-test('handles special characters in data', () => {
-  const { genres, styles } = require('..');
-  const all = [...genres, ...styles];
-  all.forEach(item => {
-    assert.strictEqual(typeof item, 'string');
-    assert.ok(item.length >= 2, `Item too short: ${item}`);
+  it('handles special characters in data', (t) => {
+    for (const item of [...genres, ...styles]) {
+      t.assert.strictEqual(typeof item, 'string');
+      t.assert.ok(item.length >= 2, `Item too short: ${item}`);
+    }
   });
 });

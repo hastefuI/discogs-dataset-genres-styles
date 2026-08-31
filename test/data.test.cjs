@@ -1,73 +1,64 @@
 // test/data.test.cjs
-const test = require('node:test');
-const assert = require('node:assert');
-const fs = require('node:fs');
-const path = require('node:path');
+const { describe, it } = require('node:test');
+const { readText, compareBytes, datasets } = require('./helpers.cjs');
 
-const dist = (file) => path.join(__dirname, '..', 'dist', file);
+describe('JSON', () => {
+  for (const { name, values } of datasets) {
+    it(`${name}.json holds unique, sorted, unpadded strings`, (t) => {
+      t.assert.ok(Array.isArray(values), `${name} should be an array`);
+      t.assert.ok(values.length > 0, `${name} should not be empty`);
 
-const cmpC = (a, b) =>
-  Buffer.from(a, 'utf8').compare(Buffer.from(b, 'utf8'));
+      values.forEach((value, i) => {
+        t.assert.strictEqual(typeof value, 'string', `${name}[${i}] must be a string`);
+        t.assert.notStrictEqual(value.trim(), '', `${name}[${i}] must not be empty`);
+        t.assert.strictEqual(value, value.trim(), `${name}[${i}] must not be padded`);
+      });
 
-test('genres.json and styles.json are valid, sorted, unique arrays', () => {
-  const genres = JSON.parse(fs.readFileSync(dist('genres.json'), 'utf8'));
-  const styles = JSON.parse(fs.readFileSync(dist('styles.json'), 'utf8'));
+      t.assert.strictEqual(
+        new Set(values).size,
+        values.length,
+        `${name} should contain unique values`
+      );
 
-  for (const [name, arr] of [['genres', genres], ['styles', styles]]) {
-    assert.ok(Array.isArray(arr), `${name} should be an array`);
-    assert.ok(arr.length > 0, `${name} should not be empty`);
-
-    arr.forEach((v, i) => {
-      assert.strictEqual(typeof v, 'string', `${name}[${i}] must be a string`);
-      const trimmed = v.trim();
-      assert.notStrictEqual(trimmed, '', `${name}[${i}] must not be empty`);
-      assert.strictEqual(v, trimmed, `${name}[${i}] should not have leading/trailing whitespace`);
+      t.assert.deepStrictEqual(
+        values,
+        [...values].sort(compareBytes),
+        `${name} should be sorted in C-locale order`
+      );
     });
-
-    const set = new Set(arr);
-    assert.strictEqual(set.size, arr.length, `${name} should contain unique values`);
-
-    const sorted = [...arr].sort(cmpC);
-    assert.deepStrictEqual(arr, sorted, `${name} should be sorted in C-locale order`);
   }
 });
 
-test('CSV files exist and match JSON length', () => {
-  const genres = JSON.parse(fs.readFileSync(dist('genres.json'), 'utf8'));
-  const styles = JSON.parse(fs.readFileSync(dist('styles.json'), 'utf8'));
+describe('CSV', () => {
+  for (const { name, singular, values } of datasets) {
+    it(`${name}.csv has a ${singular} header and one row per entry`, (t) => {
+      const lines = readText(`${name}.csv`).trimEnd().split('\n');
 
-  const checkCsv = (file, header, expectedLength) => {
-    const contents = fs.readFileSync(dist(file), 'utf8').trimEnd();
-    const lines = contents.split('\n');
-    assert.ok(lines.length > 1, `${file} should have header + data`);
-    assert.strictEqual(lines[0], header, `${file} header should be ${header}`);
-    assert.strictEqual(
-      lines.length - 1,
-      expectedLength,
-      `${file} rows should match JSON length`
-    );
-  };
-
-  checkCsv('genres.csv', 'genre', genres.length);
-  checkCsv('styles.csv', 'style', styles.length);
+      t.assert.ok(lines.length > 1, `${name}.csv should have a header and data`);
+      t.assert.strictEqual(lines[0], singular, `header should be ${singular}`);
+      t.assert.strictEqual(
+        lines.length - 1,
+        values.length,
+        `${name}.csv rows should match the JSON length`
+      );
+    });
+  }
 });
 
-test('XML files exist and have expected root/elements count', () => {
-  const genres = JSON.parse(fs.readFileSync(dist('genres.json'), 'utf8'));
-  const styles = JSON.parse(fs.readFileSync(dist('styles.json'), 'utf8'));
+describe('XML', () => {
+  for (const { name, singular, values } of datasets) {
+    it(`${name}.xml declares <${name}> and one <${singular}> per entry`, (t) => {
+      const xml = readText(`${name}.xml`);
 
-  const checkXml = (file, rootTag, childTag, expectedLength) => {
-    const xml = fs.readFileSync(dist(file), 'utf8');
-    assert.ok(xml.startsWith('<?xml'), `${file} should start with XML declaration`);
-    assert.ok(xml.includes(`<${rootTag}>`), `${file} should contain <${rootTag}> root`);
-    const matches = xml.match(new RegExp(`<${childTag}>`, 'g')) || [];
-    assert.strictEqual(
-      matches.length,
-      expectedLength,
-      `${file} should have ${expectedLength} <${childTag}> elements`
-    );
-  };
+      t.assert.ok(xml.startsWith('<?xml'), `${name}.xml should start with an XML declaration`);
+      t.assert.ok(xml.includes(`<${name}>`), `${name}.xml should contain the <${name}> root`);
 
-  checkXml('genres.xml', 'genres', 'genre', genres.length);
-  checkXml('styles.xml', 'styles', 'style', styles.length);
+      const elements = xml.match(new RegExp(`<${singular}>`, 'g')) ?? [];
+      t.assert.strictEqual(
+        elements.length,
+        values.length,
+        `${name}.xml should have ${values.length} <${singular}> elements`
+      );
+    });
+  }
 });
