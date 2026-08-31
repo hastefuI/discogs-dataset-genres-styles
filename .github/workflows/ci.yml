@@ -38,5 +38,6 @@ jobs:
 
       - name: Type check the declarations
         run: >
-          npx --yes typescript@5.7.2 tsc --noEmit --strict --target es2022
+          npx --yes --package=typescript@5.7.2 --
+          tsc --noEmit --strict --target es2022
           --module nodenext --moduleResolution nodenext test/types.ts
