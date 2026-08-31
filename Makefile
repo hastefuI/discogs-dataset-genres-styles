@@ -13,10 +13,11 @@ help: ## Show the available targets
 dump: ## Resolve and download the latest dump (about 10 GB)
 	@f="$$($(SCRIPTS)/discogs-fetch-data-dump.sh)" && $(SCRIPTS)/discogs-download-data-dump.sh "$$f"
 
-extract: ## Rebuild dist/ from the downloaded dump
+extract: ## Rebuild dist/ and stamp the README from the downloaded dump
 	@f="$$(ls -1 discogs_*_releases.xml.gz 2>/dev/null | tail -1)"; \
 		test -n "$$f" || { echo "No dump found. Run 'make dump' first." >&2; exit 1; }; \
-		$(SCRIPTS)/discogs-extract-genres-styles.sh "$$f"
+		$(SCRIPTS)/discogs-extract-genres-styles.sh "$$f" && \
+		$(SCRIPTS)/discogs-stamp-readme.sh "$$f"
 
 dataset: dump extract ## Download the dump and rebuild dist/
 
