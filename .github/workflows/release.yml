@@ -1,0 +1,100 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_type:
+        description: 'Version bump'
+        required: true
+        default: 'minor'
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: '.nvmrc'
+          package-manager-cache: false
+
+      - name: Run tests
+        run: npm test
+
+  publish:
+    runs-on: ubuntu-latest
+    needs: test
+    permissions:
+      contents: write
+      id-token: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: '.nvmrc'
+          registry-url: 'https://registry.npmjs.org'
+          package-manager-cache: false
+
+      # dist/ is rebuilt locally with `make dataset`, which also stamps the
+      # README. The dump it came from is read back from that marker.
+      - name: Read the source dump from the README
+        id: source
+        run: |
+          set -euo pipefail
+          line="$(grep -o '<!-- LAST_UPDATED -->.*' README.md)"
+          source_file="$(printf '%s' "$line" | grep -oE 'discogs_[0-9]{8}_releases\.xml\.gz')"
+          if [[ -z "${source_file}" ]]; then
+            echo "Could not read a dump filename from the README marker." >&2
+            exit 1
+          fi
+          echo "source_file=${source_file}" >> "$GITHUB_OUTPUT"
+          echo "Releasing dataset extracted from ${source_file}"
+
+      - name: Configure git user
+        run: |
+          git config --local user.email "${{ vars.GIT_USER_EMAIL }}"
+          git config --local user.name "${{ vars.GIT_USER_NAME }}"
+
+      - name: Publish changes upstream
+        id: publish_changes
+        env:
+          SOURCE_FILE: ${{ steps.source.outputs.source_file }}
+          RELEASE_TYPE: ${{ github.event.inputs.release_type }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          .github/scripts/publish.sh "$SOURCE_FILE" true
+
+      - name: Create GitHub Release using GH CLI
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SOURCE_FILE: ${{ steps.source.outputs.source_file }}
+        run: |
+          set -euo pipefail
+
+          TAG="${{ steps.publish_changes.outputs.tag_name }}"
+          DATE="${{ steps.publish_changes.outputs.extracted_date }}"
+
+          echo "Creating release $TAG ..."
+
+          gh release create "$TAG" dist/* \
+            --title "$TAG" \
+            --notes "Dataset release.
+            Source file: \`${SOURCE_FILE}\`
+            Extracted on: ${DATE}
+            "

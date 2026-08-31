@@ -1,14 +1,10 @@
 #!/usr/bin/env bash
 # Usage: ./publish.sh discogs_YYYYMMDD_releases.xml.gz [SHOULD_RELEASE]
-# Produces: Updated README, git commit/tag, and npm package (if SHOULD_RELEASE=true)
-# Requirements: git, npm, jq, perl, grep
+# Produces: Version bump commit, git tag, and npm package (if SHOULD_RELEASE=true)
+# Requirements: git, npm, jq, grep
 
 set -euo pipefail
 IFS=$'\n\t'
-
-README_FILE="README.md"
-DIST_DIR="dist"
-MARKER="<!-- LAST_UPDATED -->"
 
 SOURCE_FILE=""
 SOURCE_CHECKSUM="${SOURCE_CHECKSUM:-}"
@@ -18,6 +14,7 @@ PKG_VERSION=""
 TAG_NAME=""
 RELEASE_NAME=""
 SHOULD_RELEASE="${2:-false}"
+RELEASE_TYPE="${RELEASE_TYPE:-minor}"
 
 require_source_file() {
   if (( $# == 0 )) && [[ -z "${SOURCE_FILE:-}" ]]; then
@@ -41,47 +38,9 @@ require_source_file() {
   echo "SHOULD_RELEASE (from env): $SHOULD_RELEASE"
 }
 
-update_readme() {
-  local checksum_part=""
-  if [[ -n "$SOURCE_CHECKSUM" ]]; then
-    local short_checksum="${SOURCE_CHECKSUM:0:8}"
-    checksum_part=" [${short_checksum}]"
-  fi
-  local updated_line="${MARKER}${SOURCE_FILE}${checksum_part} (extracted ${EXTRACTED_DATE})"
-
-  echo "Updated line: $updated_line"
-
-  if ! grep -q "$MARKER" "$README_FILE"; then
-    echo "Error: Marker '$MARKER' not found in $README_FILE" >&2
-    exit 1
-  fi
-
-  echo "Updating $README_FILE ..."
-  perl -i -pe "s|${MARKER}.*|${updated_line}|" "$README_FILE"
-}
-
-stage_dist_and_readme() {
-  echo "Staging $DIST_DIR and $README_FILE ..."
-  git add "$DIST_DIR" "$README_FILE" 2>/dev/null || true
-}
-
-commit_data_changes_if_any() {
-  if git diff --cached --quiet; then
-    echo "No changes in $DIST_DIR or $README_FILE to commit."
-    return
-  fi
-
-  echo "Committing data changes ..."
-  git commit -m "chore(release): update genres/styles from ${SOURCE_FILE}
-
-    Source: ${SOURCE_FILE}
-    Date: ${EXTRACTED_DATE}"
-  git push origin HEAD
-}
-
 bump_version_and_set_release_metadata() {
-  echo "Bumping package version (minor) ..."
-  npm version minor --no-git-tag-version
+  echo "Bumping package version (${RELEASE_TYPE}) ..."
+  npm version "${RELEASE_TYPE}" --no-git-tag-version
 
   git add package.json package-lock.json 2>/dev/null || true
 
@@ -145,11 +104,7 @@ set_github_output() {
 
 require_source_file "${1:-}"
 
-update_readme
-stage_dist_and_readme
-commit_data_changes_if_any
 
-# If we are NOT releasing, we're done after updating/committing data.
 if [[ "${SHOULD_RELEASE}" != "true" ]]; then
   echo "SHOULD_RELEASE is not 'true'; skipping version bump, tag, and npm publish."
   set_github_output "false"
