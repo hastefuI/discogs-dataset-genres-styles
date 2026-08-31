@@ -1,5 +1,5 @@
-# discogs-dataset-genres-styles [![ci](https://github.com/hastefuI/discogs-dataset-genres-styles/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/hastefuI/discogs-dataset-genres-styles/actions/workflows/ci.yml) [![dataset update](https://github.com/hastefuI/discogs-dataset-genres-styles/actions/workflows/dataset-update.yml/badge.svg)](https://github.com/hastefuI/discogs-dataset-genres-styles/actions/workflows/dataset-update.yml) [![npm](https://img.shields.io/npm/v/discogs-dataset-genres-styles.svg)](https://www.npmjs.com/package/discogs-dataset-genres-styles) [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/hastefuI/discogs-dataset-genres-styles/blob/main/LICENSE)
-A list of genres and styles extracted from the official [Discogs Data Dump](https://data.discogs.com) that's published monthly as a dataset.
+# discogs-dataset-genres-styles [![ci](https://github.com/hastefuI/discogs-dataset-genres-styles/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/hastefuI/discogs-dataset-genres-styles/actions/workflows/ci.yml) [![release](https://github.com/hastefuI/discogs-dataset-genres-styles/actions/workflows/release.yml/badge.svg)](https://github.com/hastefuI/discogs-dataset-genres-styles/actions/workflows/release.yml) [![npm](https://img.shields.io/npm/v/discogs-dataset-genres-styles.svg)](https://www.npmjs.com/package/discogs-dataset-genres-styles) [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/hastefuI/discogs-dataset-genres-styles/blob/main/LICENSE)
+A list of genres and styles extracted from the official [Discogs Data Dump](https://data.discogs.com), published as a dataset.
 
 ## Overview
 
@@ -7,7 +7,7 @@ The [Discogs API](https://www.discogs.com/developers) doesn't provide endpoints 
 
 Developers that need the complete dataset must parse the data dump themselves or resort to scraping.
 
-This repository automates downloading the latest monthly Discogs Data Dump for releases, extracting every unique genre and style, and publishing the updates in standardized machine-readable data exchange formats:
+This repository automates downloading the latest Discogs Data Dump for releases, extracting every unique genre and style, and publishing the updates in standardized machine-readable data exchange formats:
 - CSV: [`dist/genres.csv`](./dist/genres.csv), [`dist/styles.csv`](./dist/styles.csv)
 - JSON: [`dist/genres.json`](./dist/genres.json), [`dist/styles.json`](./dist/styles.json)
 - XML: [`dist/genres.xml`](./dist/genres.xml), [`dist/styles.xml`](./dist/styles.xml)
@@ -30,7 +30,7 @@ https://cdn.jsdelivr.net/npm/discogs-dataset-genres-styles/dist/genres.json
 https://unpkg.com/discogs-dataset-genres-styles/dist/styles.csv
 ```
 
-Add a version to pin a specific monthly release:
+Add a version to pin a specific release:
 
 ```
 https://cdn.jsdelivr.net/npm/discogs-dataset-genres-styles@1.9.0/dist/genres.json
