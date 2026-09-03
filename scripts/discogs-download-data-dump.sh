@@ -5,11 +5,8 @@
 # Requirements: curl, sha256sum, mktemp, grep
 
 set -euo pipefail
-IFS=$'\n\t'
 
 TARGET="https://data.discogs.com"
-
-USER_AGENT="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
 
 usage() {
   echo "Usage: $0 discogs_YYYYMMDD_releases.xml.gz" >&2
@@ -34,11 +31,12 @@ CHECKSUM_FILE="discogs_${DUMP_DATE}_CHECKSUM.txt"
 CHECKSUM_URL="${TARGET}/?download=${REMOTE_PATH}/${CHECKSUM_FILE}"
 
 echo "Using releases dump: ${FILENAME}"
-echo "Date: ${DUMP_DATE} | Year: ${YEAR}"
 
 # Track temp files for cleanup
 CLEANUP_FILES=()
-cleanup() { rm -f "${CLEANUP_FILES[@]}"; }
+# bash 3.2 treats "${arr[@]}" on an empty array as unbound under set -u, and the
+# array stays empty when every file is already cached.
+cleanup() { (( ${#CLEANUP_FILES[@]} > 0 )) && rm -f "${CLEANUP_FILES[@]}"; return 0; }
 trap cleanup EXIT INT TERM
 
 is_cached() {
@@ -52,7 +50,7 @@ download_file() {
   tmp=$(mktemp "${outfile}.XXXXXX")
   CLEANUP_FILES+=("$tmp")
 
-  if curl -fL --http1.1 --fail --silent --show-error -A "${USER_AGENT}" --retry 3 --retry-delay 5 --output "$tmp" "$url"; then
+  if curl -fL --silent --show-error --output "$tmp" "$url"; then
     mv "$tmp" "$outfile"
   else
     echo "Failed to download from $url" >&2
@@ -94,7 +92,3 @@ fi
 
 echo "Checksum OK for ${FILENAME}"
 echo "Download completed $(du -h "$FILENAME" | cut -f1)"
-
-if [[ -n "${GITHUB_OUTPUT:-}" ]]; then
-  echo "checksum=${expected_hash}" >> "$GITHUB_OUTPUT"
-fi

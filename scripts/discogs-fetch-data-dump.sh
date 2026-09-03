@@ -8,8 +8,6 @@ set -euo pipefail
 
 TARGET="https://data.discogs.com"
 
-USER_AGENT="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
-
 # Discogs publishes each dump on the first of the month, so the filename follows
 # from the date. Probe the derived name before asking for a directory listing.
 derived_filename() {
@@ -22,7 +20,7 @@ derived_filename() {
 probe_status() {
   local filename="$1"
   local year="${filename:8:4}"
-  curl -s -o /dev/null -I --http1.1 -A "${USER_AGENT}" --max-time 30 \
+  curl -s -o /dev/null -I --max-time 30 \
     -w '%{http_code}' "${TARGET}/?download=data/${year}/${filename}" || printf '000'
 }
 
@@ -43,7 +41,7 @@ try_listing() {
   local year="$1"
   local tmp status filename
   tmp=$(mktemp)
-  status=$(curl -s -A "${USER_AGENT}" --retry 3 --retry-delay 5 --max-time 60 \
+  status=$(curl -s --max-time 60 \
     -o "${tmp}" -w '%{http_code}' "${TARGET}/?prefix=data/${year}/" || printf '000')
   echo "Requesting the ${year} directory listing ... HTTP ${status}" >&2
   filename=$(grep -oE 'discogs_[0-9]{8}_releases\.xml\.gz' "${tmp}" | sort -V | tail -1) || true
