@@ -33,11 +33,11 @@ jobs:
 
       - name: Bundle for the browser
         run: >
-          npx --yes esbuild@0.25.0 examples/browser.mjs
+          npx --yes esbuild@0.28.2 examples/browser.mjs
           --bundle --platform=browser --outfile=/dev/null
 
       - name: Type check the declarations
         run: >
-          npx --yes --package=typescript@5.7.2 --
+          npx --yes --package=typescript@7.0.2 --
           tsc --noEmit --strict --target es2022
           --module nodenext --moduleResolution nodenext test/types.ts

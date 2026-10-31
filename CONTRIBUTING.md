@@ -10,7 +10,7 @@ The package has no dependencies, so there is nothing to install. Clone the repos
 $ npm test
 ```
 
-Node 24 is the supported version and is pinned in [`.nvmrc`](./.nvmrc). It is the current Node LTS release.
+Node 26 is the supported version and is pinned in [`.nvmrc`](./.nvmrc). It is the current Node LTS release.
 
 ## Project Layout
 
